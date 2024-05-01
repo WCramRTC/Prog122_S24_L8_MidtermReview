@@ -11,17 +11,19 @@
     Width="800">
     <Canvas>
         <Label
-            Content="Label"
+            Content="Student Name"
             HorizontalAlignment="Left"
-            Margin="49,28,0,0"
-            VerticalAlignment="Top" />
+            VerticalAlignment="Center"
+            Canvas.Left="216"
+            Canvas.Top="31" />
         <TextBox
+            x:Name="txtName"
             HorizontalAlignment="Left"
-            Margin="92,32,0,0"
             TextWrapping="Wrap"
-            Text="TextBox"
-            VerticalAlignment="Top"
-            Width="120" />
+            VerticalAlignment="Center"
+            Width="120"
+            Canvas.Left="338"
+            Canvas.Top="35" />
         <Button
             x:Name="btnAddProgramming"
             Content="Programming"
@@ -61,7 +63,7 @@
                 <Paragraph>
                     <Run
                         x:Name="rtbDisplaySchedule"
-                        Text="RichTextBox" />
+                         />
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
@@ -76,7 +78,7 @@
                 <Paragraph>
                     <Run
                         x:Name="rtbPreviousSchedule"
-                        Text="RichTextBox" />
+                         />
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
@@ -89,12 +91,14 @@
             VerticalAlignment="Center"
             SelectionChanged="cmbChooseSchedule_SelectionChanged" />
         <Button
+            x:Name="btnFinalizeSchedule"
             Content="Finalize Schedule"
             Canvas.Left="216"
             Canvas.Top="387"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Width="245" />
+            Width="245"
+            Click="btnFinalizeSchedule_Click" />
 
     </Canvas>
 </Window>

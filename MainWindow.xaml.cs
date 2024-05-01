@@ -18,53 +18,64 @@ namespace Prog122_S24_L8_MidtermReview
     {
         List<Schedule> previousSchedules = new List<Schedule>();
         ClassProgram programs = new ClassProgram();
+        Schedule currentSchedule; // No need to initialize here, constructor does it
 
         public MainWindow()
         {
             InitializeComponent();
-
-            Schedule mySchedule = new Schedule("Will");
-
-            // How to add a class from a "class program instance" to our schedule
-            Course progCourse = programs.ProgrammingCourses[0];
-            mySchedule.Courses.Add(progCourse);
-            mySchedule.Courses.Add(programs.FrontEndCourses[0]);
-
-            previousSchedules.Add(mySchedule);
-
+            currentSchedule = new Schedule(); // Initialize currentSchedule 
             cmbChooseSchedule.ItemsSource = previousSchedules;
         }
 
-        private void cmbChooseSchedule_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 1. Create a list in MainWindow for List<Schedule>
-            // Call it - previousSchedules
-            // 2. Add the list to the cmbChooseSchedule.ItemsSource
-            // 3. Inside of the ComboBox Click event, get the selected intem
-            Schedule selectedSchedule = (Schedule)cmbChooseSchedule.SelectedItem;
-
-            // 4. Assign the selectedItems.FormattedSchedule() to the rtbPreviousSchedule
-            rtbPreviousSchedule.Text = selectedSchedule.FormatSchedule();
-
-        }
+        // ... (rest of your code)
 
         private void btnAddProgramming_Click(object sender, RoutedEventArgs e)
         {
+            // Ensure there are programming courses available
+         
+                currentSchedule.Courses.Add(programs.ProgrammingCourses[0]); // Add first programming course
+                rtbDisplaySchedule.Text = currentSchedule.FormatSchedule();
+
 
         }
 
         private void btnDatabase_Click(object sender, RoutedEventArgs e)
         {
 
+                currentSchedule.AddCourse(programs.DatabaseCourses[0]); // Add first database course
+                rtbDisplaySchedule.Text = currentSchedule.FormatSchedule();
         }
 
         private void btnFrontEnd_Click(object sender, RoutedEventArgs e)
         {
-
+                currentSchedule.Courses.Add(programs.FrontEndCourses[0]); // Add first front-end course
+                rtbDisplaySchedule.Text = currentSchedule.FormatSchedule();
         }
 
-        // Add a combo box
-        // Add another rich text box ( named rtbPreviousSchedule )
+        private void btnFinalizeSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            string studentName = txtName.Text.Trim();
+            if (!string.IsNullOrEmpty(studentName))
+            {
+                currentSchedule.StudentName = studentName; // Assign the name
+                previousSchedules.Add(currentSchedule);    // Add to previous schedules
+                cmbChooseSchedule.ItemsSource = previousSchedules; // Reset with updated list
+                cmbChooseSchedule.Items.Refresh();
 
+                txtName.Clear();       // Clear the name textbox
+                currentSchedule = new Schedule(); // Create a new current schedule 
+            }
+            else
+            {
+                MessageBox.Show("Enter a name");
+            }
+        }
+
+        private void cmbChooseSchedule_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Schedule selectedSchedule = cmbChooseSchedule.SelectedItem as Schedule;
+
+            rtbPreviousSchedule.Text = selectedSchedule.FormatSchedule();
+        }
     }
 }
